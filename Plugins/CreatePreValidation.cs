@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xrm.Sdk;
+using Newtonsoft.Json;
 
 namespace Plugins
 {
@@ -13,7 +14,7 @@ namespace Plugins
         {
             string logicalName = "account";
             string email = "email";
-            string correctFormat = "correctFormat";
+            string valid = "valid";
             bool b;
             IPluginExecutionContext context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
             if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
@@ -24,11 +25,12 @@ namespace Plugins
                 {
                     if (entity.Attributes.Contains(email) && b)
                     {
-                        entity.Attributes.Add(correctFormat, true);
+                        entity.Attributes.Add(valid, true);
+                        var json = JsonConvert.SerializeObject();
                     }
                     else
                     {
-                        entity.Attributes.Add(correctFormat, false);
+                        entity.Attributes.Add(valid, false);
                     }
                 }
             }
