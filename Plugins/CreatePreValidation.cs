@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xrm.Sdk;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 namespace Plugins
 {
@@ -21,7 +22,7 @@ namespace Plugins
             if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
             {
                 Entity entity = (Entity)context.InputParameters["Target"];
-                b = entity.Attributes[email].ToString().Contains(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+                b = Regex.IsMatch(entity.Attributes[email].ToString(),(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"));
                 if (entity.LogicalName == logicalName)
                 {
                     if (entity.Attributes.Contains(email) && b)
