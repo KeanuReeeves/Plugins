@@ -8,6 +8,6 @@ namespace Plugins
 {
     class CreatePreValidation
     {
-//alma
+//teszt2
     }
 }
