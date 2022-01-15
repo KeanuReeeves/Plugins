@@ -15,6 +15,7 @@ namespace Plugins
             string logicalName = "account";
             string email = "email";
             string valid = "valid";
+            string token = "0VhQPJ8e9vaowwIIwNpmQ1tUaIdjT3dS";
             bool b;
             IPluginExecutionContext context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
             if (context.InputParameters.Contains("Target") && context.InputParameters["Target"] is Entity)
@@ -26,7 +27,8 @@ namespace Plugins
                     if (entity.Attributes.Contains(email) && b)
                     {
                         entity.Attributes.Add(valid, true);
-                        var json = JsonConvert.SerializeObject();
+                       
+                        var json = JsonConvert.SerializeObject(new JsonEncode(entity.Attributes[email].ToString(),(bool)entity.Attributes[valid],token));
                     }
                     else
                     {
